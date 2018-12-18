@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Domínguez Carpintería</title>
+  <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
+  <style>
+    *{
+      padding: 0;
+      margin: 0;
+    }
+    body {
+      font-family: 'Lato', sans-serif;
+      max-width: 100%;
+    }
+    .header {
+      padding: 10px;
+      box-shadow: 0 0px 15px #000000;
+      margin-bottom: 1em;
+    }
+    .header img {
+      width: 60px;
+
+    }
+    main {
+      padding: 20px 10px;
+    }
+    #cotizacion {
+      display: flex;
+      flex-direction: column;
+    }
+    #cotizacion input {
+      padding: 10px;
+      margin: 10px 0;
+    }
+    .cotizacionBtn {
+      padding: 15px;
+      /* width: 150px; */
+    }
+    .modal {
+      position: absolute;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background: #ccc;
+    }
+    .modal .modalHeader {
+      box-shadow: 0 0px 15px #000000;
+      padding: 10px;
+      background: white;
+      display: flex;
+      height: 50px;
+      justify-content: space-between;
+    }
+    .modal .modalHeader img {
+      width: 60px;
+    }
+    .prizes {
+      padding: 20px 10px;      
+    }
+  </style>
+
+</head>
+<body>
+  <header class="header">
+    <img src="LOGO.png" />
+  </header>
+  <main>
+    <div id="cotizacion">
+      <h1>Cotización</h1>
+      <input type="number" id="priceBtn" placeholder="$0.00" />
+      <button id="cotizacionBtn" class="cotizacionBtn">Cotizar ahora</button>
+    </div>
+  </main>
+  <div class="modal" id="modal" style="display: none;">
+    <header class="modalHeader">
+      <img src="LOGO.png" />
+      <button id="closeCotizacion">Cerrar cotización</button>
+    </header>
+    <div class="prizes">
+      <p>Pago con descuento por pago en efectivo:</p>
+      <h2><label>$</label><label for="" id="cash">0.00</label></h2>
+      <hr />
+      <p>Pago una sóla exhibición tarjeta débito</p>
+      <h2><label>$</label><label for="" id="debit">0.00</label></h2>
+      <hr />
+      <p>Pago una sóla exhibición tarjeta crédito</p>
+      <h2><label>$</label><label for="" id="credit_one">0.00</label></h2>
+      <hr />
+      <p>3 pagos con tarjeta débito</p>
+      <h2><label>$</label><label for="" id="credit_three">0.00</label></h2>
+      <hr />
+      <p>6 pagos con tarjeta débito</p>
+      <h2><label>$</label><label for="" id="credit_six">0.00</label></h2>
+      <hr />
+      <p>9 pagos con tarjeta débito</p>
+      <h2><label>$</label><label for="" id="credit_nine">0.00</label></h2>
+      <hr />
+      <p>12 pagos con tarjeta débito</p>
+      <h2><label>$</label><label for="" id="credit_twelve">0.00</label></h2>
+    </div>
+  </div>
+  <script>
+    btn = document.getElementById("cotizacionBtn");
+    modal = document.getElementById("modal");
+    btnModal = document.getElementById("closeCotizacion");
+    btn.addEventListener("click", function() {
+    const cash = document.getElementById("cash");
+    const debit = document.getElementById("debit");
+    const credit_one = document.getElementById("credit_one");
+    const credit_three = document.getElementById("credit_three");
+    const credit_six = document.getElementById("credit_six");
+    const credit_nine = document.getElementById("credit_nine");
+    const credit_twelve = document.getElementById("credit_twelve");
+
+      priceInput = parseFloat(document.getElementById("priceBtn").value);
+      var unPagoResult = unPago(priceInput)
+      var tresPagosResult = tresPago(priceInput)
+      var sixPagosResult = sixPago(priceInput)
+      var ninePagosResult = ninePago(priceInput)
+      var twelvePagosResult = twelvePago(priceInput)
+      cash.innerHTML = priceInput;
+      debit.innerHTML = unPagoResult;
+      credit_one.innerHTML = unPagoResult;
+      credit_three.innerHTML = tresPagosResult;
+      credit_six.innerHTML = sixPagosResult;
+      credit_nine.innerHTML = ninePagosResult;
+      credit_twelve.innerHTML = twelvePagosResult;
+      modal.style = "";
+    });
+    btnModal.addEventListener("click", function() {
+      modal.style = "display:none;";
+    });
+
+    function unPago(price) {
+      var porcentaje = (price * 4.5) / 100;
+      var total = price + porcentaje;
+      var test = total - price
+      if (test > 0) {
+        return total;
+      }
+      return 0.00
+    }
+
+    function tresPago(price) {
+      var porcentaje = (price * 10.5) / 100;
+      var total = price + porcentaje;
+      var test = total - price
+      if (test > 0) {
+        return total;
+      }
+      return 0.00
+    }
+    
+    function sixPago(price) {
+      var porcentaje = (price * 14.7) / 100;
+      var total = price + porcentaje;
+      var test = total - price
+      if (test > 0) {
+        return total;
+      }
+      return 0.00
+    }
+
+    function ninePago(price) {
+      var porcentaje = (price * 18.5) / 100;
+      var total = price + porcentaje;
+      var test = total - price
+      if (test > 0) {
+        return total;
+      }
+      return 0.00
+    }
+    function twelvePago(price) {
+      var porcentaje = (price * 22) / 100;
+      var total = price + porcentaje;
+      var test = total - price
+      if (test > 0) {
+        return total;
+      }
+      return 0.00
+    }
+  </script>
+</body>
+</html>
